@@ -1,7 +1,12 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+
 [project]
 name = "py-ttlock-client"
 version = "0.1.0"
-description = "Add your description here"
+description = "IoT library for connection Smart Locks by TTLocks and Sciener"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
