@@ -10,9 +10,9 @@ class BaseInterface:
     """Shared primitives used by all domain-specific interfaces."""
 
     def __init__(self, interface):
-        """Store root interface/client object for subsequent API operations."""
+        """Store root interface object and its underlying client."""
         self.interface = interface
-        self.client = interface
+        self.client = interface.client
 
     async def _ensure_login(self) -> None:
         """Ensure access token exists, invoking login() when needed."""
