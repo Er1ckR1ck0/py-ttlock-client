@@ -91,6 +91,7 @@ class LockClient(LockClientTools):
         client_secret: str | None = None,
         username: str | None = None,
         password: str | None = None,
+        access_token: str | None = None,
     ):
         """
         Initialize API client credentials and HTTP transport.
@@ -101,6 +102,7 @@ class LockClient(LockClientTools):
             client_secret: OAuth client secret.
             username: Account username used for login.
             password: Plain or pre-hashed account password.
+            access_token: Pre-existing access token to reuse for API requests.
         """
         self.provider = provider
         self.api_base_url = PROVIDER_BASE_URLS[provider]
@@ -124,6 +126,7 @@ class LockClient(LockClientTools):
         )
         if self.password and not self.password.startswith("md5"):
             self.password = hashlib.md5(self.password.encode("utf-8")).hexdigest()
+        self.access_token = access_token
 
         self.headers = {"Content-Type": "application/x-www-form-urlencoded"}
         self.http_client = httpx.AsyncClient(timeout=30.0)
