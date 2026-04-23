@@ -1,7 +1,11 @@
 from typing import Optional
 
-from .client import LockClient
-from .modules.constants import LockProvider
+try:
+    from .client import LockClient
+    from .modules.constants import LockProvider
+except ImportError:
+    from client import LockClient
+    from modules.constants import LockProvider
 
 
 class TTLockClient(LockClient):
