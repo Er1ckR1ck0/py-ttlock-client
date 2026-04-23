@@ -24,7 +24,7 @@ Async Python client for TTLock/Sciener APIs with typed Pydantic schemas and high
 ## Installation
 
 ```bash
-pip install py-ttlock-client
+uv pip install --extra-index-url https://test.pypi.org/simple/ --index-strategy unsafe-best-match py-ttlock-client
 ```
 
 Or for development:
