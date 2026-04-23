@@ -185,7 +185,3 @@ py_ttlock_client/
     ├── passcode.py
     └── qr.py
 ```
-
-## License
-
-MIT
