@@ -24,6 +24,14 @@ Async Python client for TTLock/Sciener APIs with typed Pydantic schemas and high
 ## Installation
 
 ```bash
+pip install py-ttlock-client
+```
+
+Or for development:
+
+```bash
+git clone https://github.com/er1ckr1ck0/py-ttlock-client.git
+cd py-ttlock-client
 uv sync
 ```
 
@@ -38,23 +46,22 @@ TTLOCK_USERNAME=your_username
 TTLOCK_PASSWORD=your_password
 ```
 
-Configuration is loaded from `settings.py` automatically.
+Configuration is loaded automatically via `pydantic-settings`.
 
 ## Quick Start
 
 ```python
 import asyncio
 
-from lock import Lock
-from settings import settings
+from py_ttlock_client import Lock
 
 
 async def main() -> None:
 	client = Lock(
-		client_id=settings.TTLOCK_CLIENT_ID,
-		client_secret=settings.TTLOCK_CLIENT_SECRET,
-		username=settings.TTLOCK_USERNAME,
-		password=settings.TTLOCK_PASSWORD,
+		client_id="your_client_id",
+		client_secret="your_client_secret",
+		username="your_username",
+		password="your_password",
 	)
 
 	lock_list = await client.Lock.get_list(page=1, page_size=20)
@@ -69,23 +76,17 @@ if __name__ == "__main__":
 	asyncio.run(main())
 ```
 
-Run the project example module:
-
-```bash
-uv run -m example
-```
-
 ## API Overview
 
 ### Facade
 
-Use `lock.Lock` as the main entry point:
+Use `py_ttlock_client.Lock` as the main entry point:
 
 - `client.Lock` -> lock management interface
 - `client.Passcode` -> passcode management interface
 - `client.QR` -> QR code management interface
 
-### Lock Interface (`interfaces/lock.py`)
+### Lock Interface
 
 - `get_list(page=1, page_size=20, lock_alias=None, device_type=None, group_id=None)`
 - `get_detail(lock_id)`
@@ -100,7 +101,7 @@ Use `lock.Lock` as the main entry point:
 - `freeze(lock_id)`
 - `unfreeze(lock_id)`
 
-### Passcode Interface (`interfaces/passcode.py`)
+### Passcode Interface
 
 - `create(lock_id, passcode, name=None, start_date, end_date, add_type=2)`
 - `get(lock_id, keyboard_pwd_version, keyboard_pwd_type, name=None, start_date=None, end_date=None)`
@@ -109,7 +110,7 @@ Use `lock.Lock` as the main entry point:
 - `change(lock_id, keyboard_pwd_id, name=None, new_passcode=None, start_date=None, end_date=None, change_type=2)`
 - `update(...)` (alias for `change`)
 
-### QR Interface (`interfaces/qr_code.py`)
+### QR Interface
 
 - `create(lock_id, qr_type, name=None, start_date=None, end_date=None, cyclic_config=None)`
 - `get_list(lock_id, page=1, page_size=20, name=None)`
@@ -122,27 +123,30 @@ Use `lock.Lock` as the main entry point:
 
 The default provider is TTLock.
 
-You can also use provider wrappers from `providers.py`:
+You can also use provider wrappers:
 
-- `TTLockClient`
-- `ScienerClient`
+```python
+from py_ttlock_client import TTLockClient, ScienerClient
+```
 
 Or pass explicit provider enum to `LockClient` / `Lock` using `LockProvider`.
 
 ## Enums
 
-Available enums in `enums.py`:
+Available enums:
 
-- `PasscodeType`
-- `LockState`
-- `DeviceType`
+```python
+from py_ttlock_client import PasscodeType, LockState, DeviceType
+```
+
+- `PasscodeType` — ONE_TIME, PERMANENT, PERIOD, ERASE
+- `LockState` — LOCKED, UNLOCKED, UNKNOWN
+- `DeviceType` — LOCK, LIFT_CONTROLLER
 
 ## Error Handling
 
-Provider/API errors are raised as `LockAPIError` from `modules/exceptions.py`.
-
 ```python
-from modules.exceptions import LockAPIError
+from py_ttlock_client import LockAPIError
 
 try:
 	...
@@ -156,26 +160,32 @@ except LockAPIError as exc:
 uv run pytest
 ```
 
-Current repository tests cover the main lock/passcode flows and model serialization constraints.
-
 ## Project Structure
 
 ```text
-.
+py_ttlock_client/
+├── __init__.py
 ├── client.py
 ├── lock.py
 ├── settings.py
 ├── providers.py
 ├── enums.py
-├── interfaces/
 ├── modules/
-├── schemas/
-├── tests/
-├── example.py
-└── pyproject.toml
+│   ├── constants.py
+│   ├── exceptions.py
+│   └── interface.py
+├── interfaces/
+│   ├── base_interface.py
+│   ├── lock.py
+│   ├── passcode.py
+│   └── qr_code.py
+└── schemas/
+    ├── base.py
+    ├── lock.py
+    ├── passcode.py
+    └── qr.py
 ```
 
-## Notes
+## License
 
-- The project uses a flat module layout (imports like `from lock import Lock`) when executed from repository root.
-- If you integrate this as an installable package, keep import mode consistent across runtime and tests.
+MIT

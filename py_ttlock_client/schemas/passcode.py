@@ -1,6 +1,6 @@
 from pydantic import Field
 
-from schemas.base import TTLockSchema
+from py_ttlock_client.schemas.base import TTLockSchema
 
 
 class PasscodeRequestBase(TTLockSchema):

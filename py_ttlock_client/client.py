@@ -7,10 +7,9 @@ import httpx
 import pytz
 from pydantic import BaseModel, SecretStr
 
-from settings import settings
-
-from modules.constants import PROVIDER_BASE_URLS, LockProvider
-from modules.exceptions import LockAPIError
+from py_ttlock_client.settings import settings
+from py_ttlock_client.modules.constants import PROVIDER_BASE_URLS, LockProvider
+from py_ttlock_client.modules.exceptions import LockAPIError
 
 
 class LockClientTools:

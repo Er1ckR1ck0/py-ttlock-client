@@ -4,9 +4,9 @@ from typing import Any
 
 from pydantic import BaseModel
 
-from modules.constants import ENDPOINTS
-from interfaces.base_interface import BaseInterface
-from schemas.lock import (
+from py_ttlock_client.modules.constants import ENDPOINTS
+from py_ttlock_client.interfaces.base_interface import BaseInterface
+from py_ttlock_client.schemas.lock import (
     LockAutoLockTimeRequest,
     LockBatteryUpdateRequest,
     LockDetail,

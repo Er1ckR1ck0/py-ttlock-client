@@ -3,13 +3,13 @@ from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 
-from interfaces.passcode import (
+from py_ttlock_client.interfaces.passcode import PasscodeInterface
+from py_ttlock_client.schemas.passcode import (
     PasscodeAddResponse,
-    PasscodeInterface,
     PasscodeListResponse,
     PasscodeOperationResponse,
 )
-from schemas.passcode import (
+from py_ttlock_client.schemas.passcode import (
     PasscodeAddRequest,
     PasscodeGetRequest,
     PasscodeResponse,

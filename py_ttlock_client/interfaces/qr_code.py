@@ -1,24 +1,23 @@
 from datetime import datetime
 from typing import Any, Mapping
 
-from modules.constants import ENDPOINTS
-from schemas.qr import (
+from py_ttlock_client.modules.constants import ENDPOINTS
+from py_ttlock_client.schemas.qr import (
     CyclicConfig,
     QRCodeCreateResponse,
     QRCodeData,
     QRCodeListRequest,
     QRCodeListResponse,
 )
-
-from interfaces.base_interface import BaseInterface
+from py_ttlock_client.interfaces.base_interface import BaseInterface
 
 QR_ENDPOINTS = {
     "add": ENDPOINTS["qrcode_add"],
     "list": ENDPOINTS["qrcode_get_all"],
     "get": ENDPOINTS["qrcode_get_one"],
-    "delete": "/v3/qrCode/delete",
-    "update": "/v3/qrCode/update",
-    "clear": "/v3/qrCode/clear",
+    "delete": ENDPOINTS["qrcode_delete"],
+    "update": ENDPOINTS["qrcode_update"],
+    "clear": ENDPOINTS["qrcode_clear"],
 }
 
 

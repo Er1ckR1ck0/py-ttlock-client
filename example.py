@@ -1,7 +1,7 @@
 import asyncio
-from lock import Lock
 
-from settings import settings
+from py_ttlock_client import Lock
+from py_ttlock_client.settings import settings
 
 ttlock = Lock(
     client_id=settings.TTLOCK_CLIENT_ID,

@@ -2,7 +2,7 @@ from typing import Optional
 
 from pydantic import AliasChoices, Field
 
-from schemas.base import BaseLockCreate, TTLockSchema
+from py_ttlock_client.schemas.base import BaseLockCreate, TTLockSchema
 
 
 class CyclicConfig(TTLockSchema):

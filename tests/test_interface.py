@@ -1,8 +1,8 @@
 import pytest
 from unittest.mock import AsyncMock
 
-from lock import Lock
-from schemas.qr import QRCodeData
+from py_ttlock_client.lock import Lock
+from py_ttlock_client.schemas.qr import QRCodeData
 
 
 @pytest.fixture

@@ -1,22 +1,19 @@
-from client import LockClient
-
-from interfaces.lock import LockInterface
-from interfaces.passcode import PasscodeInterface
-from interfaces.qr_code import QRInterface
-
-from modules.constants import ENDPOINTS, LockProvider
+from py_ttlock_client.client import LockClient
+from py_ttlock_client.interfaces.lock import LockInterface
+from py_ttlock_client.interfaces.passcode import PasscodeInterface
+from py_ttlock_client.interfaces.qr_code import QRInterface
+from py_ttlock_client.modules.constants import ENDPOINTS, LockProvider
 
 
 class Lock(LockClient):
     """High-level facade exposing lock, passcode, and QR interfaces."""
 
-    def __init__(self, provider = LockProvider.TTLOCK, client_id = None, client_secret = None, username = None, password = None):
+    def __init__(self, provider=LockProvider.TTLOCK, client_id=None, client_secret=None, username=None, password=None):
         """Initialize provider client and bind feature-specific interfaces."""
         super().__init__(provider, client_id, client_secret, username, password)
 
-        # Interface classes expect an object with a `.client` attribute.
         self.client = self
-        
+
         self.Lock = LockInterface(self)
         self.QR = QRInterface(self)
         self.Passcode = PasscodeInterface(self)
@@ -41,6 +38,3 @@ class Lock(LockClient):
         }
         response = await self.request("POST", ENDPOINTS["oauth_token"], data=data)
         self.access_token = response.get("access_token")
-    
-    
-            

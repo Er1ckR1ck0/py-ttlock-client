@@ -5,9 +5,9 @@ from typing import Any
 
 from pydantic import BaseModel
 
-from modules.constants import ENDPOINTS
-from interfaces.base_interface import BaseInterface
-from schemas.passcode import (
+from py_ttlock_client.modules.constants import ENDPOINTS
+from py_ttlock_client.interfaces.base_interface import BaseInterface
+from py_ttlock_client.schemas.passcode import (
     PasscodeAddRequest,
     PasscodeAddResponse,
     PasscodeChangeRequest,
@@ -22,9 +22,9 @@ from schemas.passcode import (
 PASSCODE_ENDPOINTS = {
     "get": ENDPOINTS["keyboard_pwd_get"],
     "add": ENDPOINTS["keyboard_pwd_add"],
-    "list": "/v3/lock/listKeyboardPwd",
+    "list": ENDPOINTS["keyboard_pwd_list"],
     "delete": ENDPOINTS["keyboard_pwd_delete"],
-    "change": "/v3/keyboardPwd/change",
+    "change": ENDPOINTS["keyboard_pwd_change"],
 }
 
 

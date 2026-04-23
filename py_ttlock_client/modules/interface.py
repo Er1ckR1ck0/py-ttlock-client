@@ -1,5 +1,5 @@
-from client import LockClient
-from modules.constants import ENDPOINTS
+from py_ttlock_client.client import LockClient
+from py_ttlock_client.modules.constants import ENDPOINTS
 
 
 class LockController:
